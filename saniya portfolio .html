@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saniya Parween — Web Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #F4F1EA;
+    --ink: #0B0C10;
+    --cobalt: #5B7CFF;
+    --amber: #E8A33D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--ink); color: var(--ivory); font-family: 'Work Sans', sans-serif; }
+
+  /* The 3D canvas sits fixed behind everything, full screen */
+  #bg-canvas {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0; display: block;
+  }
+
+  /* Scroll progress bar */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; background: var(--cobalt);
+    z-index: 20; width: 0%; transition: width 0.1s linear;
+  }
+
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 15;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 36px; mix-blend-mode: difference;
+  }
+  .brand { font-family: 'Fraunces', serif; font-size: 18px; }
+  nav { display: flex; gap: 26px; font-size: 13.5px; }
+  nav a { color: var(--ivory); text-decoration: none; opacity: 0.8; }
+
+  /* Each section reserves real scroll height; content fades via JS */
+  section {
+    position: relative; height: 100vh; display: flex; align-items: center;
+    z-index: 10; pointer-events: none;
+  }
+  section .panel {
+    max-width: 560px; margin: 0 36px; opacity: 0; transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease; pointer-events: auto;
+  }
+  section .panel.visible { opacity: 1; transform: translateY(0); }
+
+  .kicker { color: var(--cobalt); font-size: 14px; margin-bottom: 14px; }
+  h1 { font-family: 'Fraunces', serif; font-size: clamp(36px, 6vw, 58px); line-height: 1.1; }
+  h2 { font-family: 'Fraunces', serif; font-size: clamp(26px, 4vw, 36px); margin-bottom: 16px; }
+  p.body-text { font-size: 16.5px; color: #CFCDC6; max-width: 46ch; margin-top: 18px; }
+  .links { margin-top: 28px; display: flex; gap: 20px; }
+  .links a { color: var(--ivory); font-size: 14px; border-bottom: 1px solid var(--ivory); padding-bottom: 2px; text-decoration: none; }
+
+  .skills-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 30px; margin-top: 20px; }
+  .skills-list div { font-size: 15px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.15); }
+
+  .project-nav { display: flex; gap: 10px; margin-bottom: 18px; }
+  .project-nav span { width: 28px; height: 3px; background: rgba(255,255,255,0.25); }
+  .project-nav span.active { background: var(--amber); }
+  .project h3 { font-family: 'Fraunces', serif; font-size: 24px; margin-bottom: 8px; }
+  .project .tags { color: var(--amber); font-size: 13px; margin-top: 10px; }
+
+  .contact .email { font-family: 'Fraunces', serif; font-size: 24px; color: var(--ivory); border-bottom: 2px solid var(--amber); padding-bottom: 4px; text-decoration: none; }
+
+  .scroll-hint {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+    z-index: 15; font-size: 12.5px; color: #8A8880; letter-spacing: 0.05em;
+    opacity: 1; transition: opacity 0.4s ease;
+  }
+  .scroll-hint.hide { opacity: 0; }
+
+  @media (max-width: 720px) {
+    header { padding: 18px 20px; }
+    nav a:not(:last-child) { display: none; }
+    section .panel { margin: 0 20px; }
+    .skills-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<canvas id="bg-canvas"></canvas>
+
+<header>
+  <div class="brand">Saniya Parween</div>
+  <nav><a href="mailto:sp0493673@gmail.com">Contact</a></nav>
+</header>
+
+<div class="scroll-hint" id="scrollHint">SCROLL TO EXPLORE</div>
+
+<!-- Section 0: Hero -->
+<section id="sec-0">
+  <div class="panel">
+    <div class="kicker">Web Designer, based in Delhi</div>
+    <h1>I design pages that are easy to trust.</h1>
+    <p class="body-text">Clean layouts, clear type, interfaces that don't get in the way — built with HTML, CSS and JavaScript.</p>
+  </div>
+</section>
+
+<!-- Section 1: About -->
+<section id="sec-1">
+  <div class="panel">
+    <h2>About</h2>
+    <p class="body-text">I'm a web designer working out of Delhi, with a background in chemistry — a BSc Hons in Chemistry from Jamia Millia Islamia. That training taught me to work carefully and structure things clearly, which shows up in how I approach layout and design.</p>
+    <p class="body-text">Early in my design career, looking for a role where I can build on client-facing web projects and keep sharpening my eye for detail.</p>
+  </div>
+</section>
+
+<!-- Section 2: Skills -->
+<section id="sec-2">
+  <div class="panel">
+    <h2>Skills</h2>
+    <div class="skills-list">
+      <div>HTML — Structure</div>
+      <div>CSS — Layout &amp; styling</div>
+      <div>JavaScript — Interactivity</div>
+      <div>AI-assisted design — Speed &amp; iteration</div>
+      <div>Visual design — Layout, type, color</div>
+      <div>Responsive design — Mobile-first</div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Projects -->
+<section id="sec-3">
+  <div class="panel project">
+    <div class="project-nav"><span class="active"></span><span></span><span></span></div>
+    <h3>This portfolio</h3>
+    <p class="body-text">A full 3D scroll experience built from scratch — camera moves through a 3D scene as you scroll, synced to each section.</p>
+    <div class="tags">HTML · CSS · JavaScript · Three.js</div>
+  </div>
+</section>
+
+<!-- Section 4: Contact -->
+<section id="sec-4">
+  <div class="panel contact">
+    <h2>Let's talk</h2>
+    <p class="body-text">Open to web designer roles — happy to talk about how I work.</p>
+    <div class="links"><a class="email" href="mailto:sp0493673@gmail.com">sp0493673@gmail.com</a></div>
+  </div>
+</section>
+
+<!-- Three.js library from cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/*
+  3D SCENE SETUP
+  --------------
+  One Three.js scene, one camera. As the user scrolls, we move the
+  camera forward along the Z axis and rotate it slightly to "look
+  toward" whichever landmark object belongs to the current section.
+  Each section's HTML panel fades in/out based on scroll position.
+*/
+
+const canvas = document.getElementById('bg-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0B0C10);
+scene.fog = new THREE.FogExp2(0x0B0C10, 0.035);
+
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(0, 0, 6);
+
+// Lighting
+scene.add(new THREE.AmbientLight(0x8890a8, 0.6));
+const pointLight = new THREE.PointLight(0x5B7CFF, 2, 40);
+pointLight.position.set(0, 3, 5);
+scene.add(pointLight);
+
+// Starfield particles drifting through the whole scene
+const starGeo = new THREE.BufferGeometry();
+const starCount = 800;
+const starPositions = new Float32Array(starCount * 3);
+for (let i = 0; i < starCount * 3; i += 3) {
+  starPositions[i] = (Math.random() - 0.5) * 60;
+  starPositions[i + 1] = (Math.random() - 0.5) * 60;
+  starPositions[i + 2] = (Math.random() - 0.5) * 200 - 20;
+}
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.6 });
+const stars = new THREE.Points(starGeo, starMat);
+scene.add(stars);
+
+/*
+  LANDMARK OBJECTS
+  -----------------
+  One distinct 3D object per section, placed at increasing Z depth.
+  SECTION_DEPTH controls how far apart each landmark sits.
+*/
+const SECTION_DEPTH = 14;
+const landmarks = [];
+
+// Section 0 — Hero: wireframe icosahedron
+const heroGeo = new THREE.IcosahedronGeometry(1.6, 1);
+const heroMat = new THREE.MeshBasicMaterial({ color: 0x5B7CFF, wireframe: true });
+const heroMesh = new THREE.Mesh(heroGeo, heroMat);
+heroMesh.position.set(2.2, 0, 0);
+scene.add(heroMesh);
+landmarks.push(heroMesh);
+
+// Section 1 — About: cluster of small spheres orbiting a core
+const aboutGroup = new THREE.Group();
+const coreGeo = new THREE.SphereGeometry(0.6, 24, 24);
+const coreMat = new THREE.MeshStandardMaterial({ color: 0xE8A33D, emissive: 0xE8A33D, emissiveIntensity: 0.3 });
+aboutGroup.add(new THREE.Mesh(coreGeo, coreMat));
+for (let i = 0; i < 6; i++) {
+  const satGeo = new THREE.SphereGeometry(0.15, 12, 12);
+  const satMat = new THREE.MeshStandardMaterial({ color: 0xF4F1EA });
+  const sat = new THREE.Mesh(satGeo, satMat);
+  const angle = (i / 6) * Math.PI * 2;
+  sat.position.set(Math.cos(angle) * 1.8, Math.sin(angle) * 1.8, 0);
+  aboutGroup.add(sat);
+}
+aboutGroup.position.set(-2, 0, -SECTION_DEPTH * 1);
+scene.add(aboutGroup);
+landmarks.push(aboutGroup);
+
+// Section 2 — Skills: grid of small rotating cubes
+const skillsGroup = new THREE.Group();
+for (let i = 0; i < 9; i++) {
+  const cubeGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+  const cubeMat = new THREE.MeshStandardMaterial({ color: 0x5B7CFF, wireframe: i % 2 === 0 });
+  const cube = new THREE.Mesh(cubeGeo, cubeMat);
+  cube.position.set(((i % 3) - 1) * 1.4, (Math.floor(i / 3) - 1) * 1.4, 0);
+  skillsGroup.add(cube);
+}
+skillsGroup.position.set(2, 0, -SECTION_DEPTH * 2);
+scene.add(skillsGroup);
+landmarks.push(skillsGroup);
+
+// Section 3 — Projects: three floating flat cards the camera passes between
+const projectGroup = new THREE.Group();
+[-1.8, 0, 1.8].forEach((x, i) => {
+  const cardGeo = new THREE.PlaneGeometry(1.2, 1.6);
+  const cardMat = new THREE.MeshStandardMaterial({ color: i === 1 ? 0xE8A33D : 0x2A2C36, side: THREE.DoubleSide });
+  const card = new THREE.Mesh(cardGeo, cardMat);
+  card.position.set(x, 0, 0);
+  card.rotation.y = -x * 0.15;
+  projectGroup.add(card);
+});
+projectGroup.position.set(0, 0, -SECTION_DEPTH * 3);
+scene.add(projectGroup);
+landmarks.push(projectGroup);
+
+// Section 4 — Contact: glowing pulsing sphere
+const contactGeo = new THREE.SphereGeometry(1.3, 32, 32);
+const contactMat = new THREE.MeshStandardMaterial({ color: 0x5B7CFF, emissive: 0x5B7CFF, emissiveIntensity: 0.5, wireframe: true });
+const contactMesh = new THREE.Mesh(contactGeo, contactMat);
+contactMesh.position.set(0, 0, -SECTION_DEPTH * 4);
+scene.add(contactMesh);
+landmarks.push(contactMesh);
+
+/*
+  SCROLL-DRIVEN CAMERA
+  ----------------------
+  We map the page's scroll percentage (0 to 1) to a camera Z position
+  that travels from 6 (in front of the hero) to deep behind the last
+  landmark. Panels fade in/out based on which section is centered.
+*/
+const panels = document.querySelectorAll('section .panel');
+const sections = document.querySelectorAll('section');
+const scrollHint = document.getElementById('scrollHint');
+const progressBar = document.getElementById('progress');
+
+function updateScroll() {
+  const scrollTop = window.scrollY;
+  const maxScroll = document.body.scrollHeight - window.innerHeight;
+  const t = Math.min(Math.max(scrollTop / maxScroll, 0), 1);
+
+  progressBar.style.width = (t * 100) + '%';
+  scrollHint.classList.toggle('hide', t > 0.03);
+
+  // Camera travels from z=6 down to z = -(SECTION_DEPTH*4 - 6)
+  const camStartZ = 6;
+  const camEndZ = -(SECTION_DEPTH * 4) + 6;
+  camera.position.z = camStartZ + (camEndZ - camStartZ) * t;
+  camera.position.x = Math.sin(t * Math.PI * 2) * 0.6;
+  camera.position.y = Math.cos(t * Math.PI * 1.5) * 0.3;
+  camera.lookAt(0, 0, camera.position.z - 5);
+
+  // Fade each panel in when its section is roughly centered in the viewport
+  sections.forEach((sec, i) => {
+    const rect = sec.getBoundingClientRect();
+    const centerDist = Math.abs(rect.top + rect.height / 2 - window.innerHeight / 2);
+    const panel = sec.querySelector('.panel');
+    if (centerDist < window.innerHeight * 0.5) {
+      panel.classList.add('visible');
+    } else {
+      panel.classList.remove('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateScroll, { passive: true });
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+
+/*
+  RENDER LOOP
+  -----------
+  Runs continuously: rotates landmark objects for visual life,
+  drifts the starfield slightly, and renders the frame.
+*/
+function animate() {
+  requestAnimationFrame(animate);
+
+  heroMesh.rotation.x += 0.003;
+  heroMesh.rotation.y += 0.004;
+  aboutGroup.rotation.z += 0.002;
+  skillsGroup.children.forEach((c, i) => { c.rotation.x += 0.005; c.rotation.y += 0.004; });
+  contactMesh.rotation.y += 0.002;
+  contactMesh.scale.setScalar(1 + Math.sin(Date.now() * 0.001) * 0.05);
+  stars.rotation.y += 0.0002;
+
+  renderer.render(scene, camera);
+}
+
+updateScroll();
+animate();
+</script>
+</body>
+</html>
