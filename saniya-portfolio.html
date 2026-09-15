@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saniya Parween — Web Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ivory: #FAF7F1;
+    --ink: #1B1A1F;
+    --ink-soft: #4A4852;
+    --cobalt: #2E3A8C;
+    --amber: #D98E2F;
+    --line: #E4DFD3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  a { color: var(--cobalt); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+
+  /* Header */
+  header {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  nav a {
+    color: var(--ink-soft);
+    margin-left: 28px;
+    font-size: 15px;
+  }
+  nav a:first-child { margin-left: 0; }
+
+  /* Hero */
+  .hero {
+    padding: 96px 0 88px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hero .kicker {
+    color: var(--cobalt);
+    font-size: 15px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.08;
+    max-width: 11ch;
+  }
+  .hero p {
+    max-width: 46ch;
+    margin-top: 24px;
+    font-size: 18px;
+    color: var(--ink-soft);
+  }
+  .hero .links {
+    margin-top: 32px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero .links a {
+    font-size: 15px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .hero .links a:hover { color: var(--cobalt); border-color: var(--cobalt); text-decoration: none; }
+
+  /* Section base */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  section h2 {
+    font-size: 28px;
+    margin-bottom: 36px;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 48px;
+  }
+  .about-grid .role {
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .about-grid p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+  .about-grid p + p { margin-top: 16px; }
+
+  /* Skills */
+  .skills-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px 40px;
+  }
+  .skills-list div {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 16px;
+  }
+  .skills-list span:last-child { color: var(--ink-soft); font-size: 14px; }
+
+  /* Projects */
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .project {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .project:last-child { border-bottom: none; }
+  .project .year {
+    font-family: 'Fraunces', serif;
+    color: var(--amber);
+    font-size: 15px;
+    padding-top: 4px;
+  }
+  .project h3 { font-size: 21px; margin-bottom: 8px; }
+  .project p { color: var(--ink-soft); font-size: 15.5px; max-width: 56ch; }
+  .project .tags {
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--cobalt);
+  }
+
+  /* Contact */
+  .contact h2 { margin-bottom: 16px; }
+  .contact p { color: var(--ink-soft); font-size: 17px; max-width: 50ch; margin-bottom: 28px; }
+  .contact .email {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    color: var(--ink);
+    border-bottom: 2px solid var(--amber);
+    padding-bottom: 4px;
+  }
+  .contact .email:hover { color: var(--cobalt); text-decoration: none; }
+  .contact .meta {
+    margin-top: 24px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+
+  footer {
+    padding: 32px 0 48px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; gap: 20px; }
+    .skills-list { grid-template-columns: 1fr; }
+    .project { grid-template-columns: 1fr; gap: 6px; }
+    nav a { margin-left: 16px; font-size: 14px; }
+    .hero { padding: 64px 0 56px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Saniya Parween</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="kicker">Web Designer, based in Delhi</div>
+    <h1>I design pages that are easy to trust.</h1>
+    <p>Clean layouts, clear type, and interfaces that don't get in the way. I build with HTML, CSS and JavaScript — and lean on AI tools to move faster without cutting corners on craft.</p>
+    <div class="links">
+      <a href="#projects">See my work</a>
+      <a href="#contact">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="role">About</div>
+    <div>
+      <p>I'm a web designer working out of Delhi, with a background in chemistry — a BSc Hons in Chemistry from Jamia Millia Islamia. That training taught me to work carefully and structure things clearly, which shows up in how I approach layout and design.</p>
+      <p>I'm early in my design career and looking for a role where I can build on client-facing web projects, learn from a team, and keep sharpening my eye for detail.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="skills-list">
+      <div><span>HTML</span><span>Structure</span></div>
+      <div><span>CSS</span><span>Layout &amp; styling</span></div>
+      <div><span>JavaScript</span><span>Interactivity</span></div>
+      <div><span>AI-assisted design</span><span>Speed &amp; iteration</span></div>
+      <div><span>Visual design</span><span>Layout, type, color</span></div>
+      <div><span>Responsive design</span><span>Mobile-first thinking</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project">
+        <div class="year">01</div>
+        <div>
+          <h3>This portfolio</h3>
+          <p>Designed and built this site from scratch — palette, type system, and layout chosen to feel calm and considered rather than templated.</p>
+          <div class="tags">HTML · CSS · Design</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="year">02</div>
+        <div>
+          <h3>[Add your project]</h3>
+          <p>Replace this with a real project — a redesign concept for a local business, a landing page, or a mockup. Describe the problem and what you designed.</p>
+          <div class="tags">Add tags here</div>
+        </div>
+      </div>
+      <div class="project">
+        <div class="year">03</div>
+        <div>
+          <h3>[Add your project]</h3>
+          <p>A third project rounds this section out nicely. Even a concept piece counts — what matters is showing your design thinking.</p>
+          <div class="tags">Add tags here</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>Open to web designer roles — happy to talk about how I work and what I can bring to a team.</p>
+    <a class="email" href="mailto:sp0493673@gmail.com">sp0493673@gmail.com</a>
+    <div class="meta">Delhi, India</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Saniya Parween</div>
+</footer>
+
+</body>
+</html>
